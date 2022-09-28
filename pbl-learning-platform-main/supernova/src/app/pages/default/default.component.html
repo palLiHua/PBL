@@ -1,0 +1,76 @@
+<nz-layout class="app-layout">
+    <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+        [nzTrigger]="null">
+        <div class="sidebar-logo">
+            <a routerLink="/home">
+                <!-- <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo"> -->
+                <img src="../../../assets/supernova-logo.png" alt="logo">
+                <h1>Supernova PBL System</h1>
+            </a>
+        </div>
+        <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+            <li *ngIf="!isAdmin" nz-submenu nzOpen nzTitle="学习管理" nzIcon="folder">
+                <ul>
+                    <li nz-menu-item nzMatchRouter>
+                        <a routerLink="/courses">课程列表</a>
+                    </li>
+                    <li nz-menu-item nzMatchRouter>
+                        <a routerLink="/projects">项目列表</a>
+                    </li>
+                    <li nz-menu-item nzMatchRouter>
+                        <a routerLink="/score">课程评分</a>
+                    </li>
+                </ul>
+            </li>
+            <li *ngIf="isAdmin" nz-submenu nzOpen nzTitle="后台管理" nzIcon="home">
+                <ul>
+                    <!-- 只有管理员可见 -->
+                    <li nz-menu-item nzMatchRouter>
+                        <a routerLink="/admin">用户管理</a>
+                    </li>
+                    <li nz-menu-item nzMatchRouter>
+                        <a routerLink="/admin_course">课程管理</a>
+                    </li>
+                    <li nz-menu-item nzMatchRouter>
+                        <a routerLink="/admin_project">项目管理</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nz-sider>
+    <nz-layout>
+        <nz-header>
+            <div class="app-header">
+                <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+                    <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+                </span>
+                <span class="user" nz-dropdown nzPlacement="bottomRight" [nzDropdownMenu]="userMenu">
+                    <nz-avatar [nzSrc]="currentUser.image" nzSize="small" class="mr-sm"></nz-avatar>
+                    <span><b>{{ currentUser.u_name }}</b>，欢迎您</span>
+                </span>
+                <nz-dropdown-menu #userMenu="nzDropdownMenu">
+                    <div nz-menu class="width-sm">
+                        <div nz-menu-item routerLink="/home">
+                            <i nz-icon nzType="user" class="mr-sm"></i>
+                            个人中心
+                        </div>
+                        <div nz-menu-item (click)="logout()">
+                            <i nz-icon nzType="logout" class="mr-sm"></i>
+                            退出登录
+                        </div>
+                    </div>
+                </nz-dropdown-menu>
+            </div>
+        </nz-header>
+        <nz-content>
+            <!-- <div class="inner-content"> -->
+            <router-outlet></router-outlet>
+            <!-- </div> -->
+        </nz-content>
+        <nz-footer style="text-align: center;">
+            <nz-typography><strong>Advanced Software Engineering, SUFE</strong></nz-typography>
+            <br />
+            <nz-typography><strong>Autumn 2021</strong></nz-typography>
+        </nz-footer>
+    </nz-layout>
+</nz-layout>

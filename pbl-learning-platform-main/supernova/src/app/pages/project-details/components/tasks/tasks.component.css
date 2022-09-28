@@ -1,0 +1,25 @@
+div {
+    margin-bottom: 16px;
+    text-align: right;
+}
+
+button {
+    margin-left: 16px;
+}
+
+nz-badge {
+    margin-left: 16px;
+}
+
+nz-empty {
+    padding-top: 12%;
+}
+
+ng-container{
+    width: 1100px;
+}
+gstc {            
+    display: block;
+    left: 0;
+    width: 1100px; 
+}

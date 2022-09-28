@@ -1,0 +1,48 @@
+<nz-card [nzCover]="coverTemplate" [nzActions]=actions nzHoverable>
+  <nz-card-meta [nzTitle]="titleTemplate" [nzDescription]=course.description
+    [nzAvatar]="avatarTemplate">
+  </nz-card-meta>
+</nz-card>
+
+<ng-template #titleTemplate >
+  <span  [routerLink]="['/projects', course.c_id]"  >
+    <span>{{course.c_name}}</span>&nbsp;
+  <nz-tag>{{course.point | number: '1.1-1'}}</nz-tag>
+  <nz-badge [nzStatus]="BADGE_STATUS[course.status]"></nz-badge>
+  </span>
+
+</ng-template>
+
+<ng-template #avatarTemplate>
+  <nz-avatar [nzSrc]=course.teacher.image [nzAlt]=course.teacher.u_name [routerLink]="['/home', course.teacher.u_id]"
+  [nzTooltipTitle]="'教师：' + course.teacher.u_name" nzTooltipPlacement="topCenter" nz-tooltip>
+  </nz-avatar><br/>
+</ng-template>
+
+<ng-template #coverTemplate>
+  <img [alt]=course.c_name [src]="course.image_URL"  [routerLink]="['/projects', course.c_id]"/>
+</ng-template>
+
+<ng-template #actionJoin>
+  <a nz-icon nzType="plus" nzTooltipTitle="加入课程" nzTooltipPlacement="topCenter" nz-tooltip (click)="showJoinConfirm()"></a>
+</ng-template>
+
+<ng-template #actionInfo>
+  <a nz-icon nzType="info" nzTooltipTitle="课程详情" nz-tooltip (click)="showDetail()"></a>
+</ng-template>
+
+<ng-template #actionEdit>
+  <a nz-icon nzType="edit" nzTooltipTitle="编辑课程" nz-tooltip (click)="showModal('edit',course.c_id)"></a>
+</ng-template>
+
+<ng-template #actionPublish>
+  <a nz-icon nzType="check" nzTooltipTitle="发布课程" nz-tooltip (click)="showPublishConfirm('发布')"></a>
+</ng-template>
+
+<ng-template #actionDelete>
+  <a nz-icon nzType="delete" nzTooltipTitle="删除课程" nzTooltipPlacement="topCenter" nz-tooltip (click)="showDeleteConfirm()"></a>
+</ng-template>
+
+<ng-template #actionResume>
+  <a nz-icon nzType="redo" nzTooltipTitle="恢复课程" nzTooltipPlacement="topCenter" nz-tooltip (click)="showPublishConfirm('恢复')"></a>
+</ng-template>

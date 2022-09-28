@@ -1,0 +1,20 @@
+2022-09-25 12:54:57,160 WARN naming.distro config will be removed, please use core.protocol.distro replace.
+
+2022-09-25 12:54:57,161 WARN Using naming.distro config to replace core.distro config
+
+2022-09-25 12:54:57,231 INFO open empty service auto clean job, initialDelay : 50000 ms, period : 30000 ms
+
+2022-09-25 12:54:57,232 INFO listen for service meta change
+
+2022-09-25 12:54:57,236 INFO upgrade.state file is not exist
+
+2022-09-25 13:03:26,632 WARN naming.distro config will be removed, please use core.protocol.distro replace.
+
+2022-09-25 13:03:26,632 WARN Using naming.distro config to replace core.distro config
+
+2022-09-25 13:03:26,705 INFO open empty service auto clean job, initialDelay : 50000 ms, period : 30000 ms
+
+2022-09-25 13:03:26,705 INFO listen for service meta change
+
+2022-09-25 13:03:26,708 INFO upgrade.state file is not exist
+

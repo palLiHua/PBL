@@ -1,0 +1,49 @@
+<nz-affix [nzOffsetTop]="offsetTop" (click)="setOffsetBottom()" class="all_update">
+  <button *ngIf="ifOpenRating" nz-button nzType="{{all_submit_button_style}}" [disabled]="!all_submit_button_disable">
+    <i nz-icon nzType="upload" nzTheme="outline"></i>全部提交
+  </button>
+</nz-affix>
+
+<nz-table #basicTable [nzData]="groupers">
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>头像</th>
+      <th>姓名</th>
+      <th>学号</th>
+      <th>简介</th>
+      <ng-container *ngIf="user.type === 'student'">
+        <th *ngIf="ifOpenRating">评分</th>
+        <th *ngIf="ifOpenRating">操作</th>
+      </ng-container>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data let i = index">
+      <td>{{ i+1 }}</td>
+      <td><a [routerLink]="['/home',data.u_id]">
+          <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="data.image"></nz-avatar>
+        </a>
+      </td>
+      <td *ngIf="leaderId == data.u_id" nz-button nzTooltipTitle="Group leader!" nzTooltipPlacement="topLeft"
+        nz-tooltip>{{ data.u_name }} <i nz-icon nzType="user" nzTheme="outline"></i></td>
+      <td *ngIf="leaderId != data.u_id">{{ data.u_name }}</td>
+      <td>{{ data.u_id }}</td>
+      <td>{{ data.description }}</td>
+      <ng-container *ngIf="user.type === 'student'">
+        <td *ngIf="ifOpenRating">
+          <span *ngIf="(open_self_rating && data.u_id == user.u_id) || (open_mutual_rating && data.u_id != user.u_id)">
+            <nz-input-number [nzDisabled]="ifEdit[i] || !ifUpdate[i]" [(ngModel)]="data.rating" [nzMin]="0"
+              [nzMax]="100" [nzStep]="0.1" [nzPlaceHolder]="'待填写' "></nz-input-number>
+          </span>
+        </td>
+        <td *ngIf="ifOpenRating && ((open_self_rating && data.u_id == user.u_id) || (open_mutual_rating && data.u_id != user.u_id))">
+          <button nz-button nzType="default" *ngIf="ifEdit[i]" (click)="edit(i)"><i nz-icon nzType="edit"
+              nzTheme="outline"></i>编辑</button>
+          <button nz-button nzType="primary" *ngIf="!ifEdit[i] || !ifUpdate[i]" [disabled]="!ifUpdate[i]"
+            (click)="update(i)"><i nz-icon nzType="upload" nzTheme="outline"></i>更新</button>
+        </td>
+      </ng-container>
+    </tr>
+  </tbody>
+</nz-table>

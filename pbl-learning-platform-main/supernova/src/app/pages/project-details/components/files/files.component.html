@@ -1,0 +1,52 @@
+<div>
+    <button nz-button nzType="primary" (click)="showUploadModel()">上传文件</button>
+</div>
+
+<nz-table #basicTable [nzData]="files">
+    <thead>
+        <tr>
+            <th>名称</th>
+            <th>描述</th>
+            <th>上传者</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td>{{ data.f_name }}</td>
+            <td>{{ data.description }}</td>
+            <td>{{ data.u_name }}</td>
+            <td>
+                <a nz-button nzType="link" (click)="downLoadFile(data)">下载</a>
+                <ng-container *ngIf="data.u_id === currentUser.u_id"> 
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a nz-button nzType="link" (click)="deleteFile(data)">删除</a>
+                </ng-container>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+
+<nz-modal 
+    [(nzVisible)]="isVisible" 
+    (nzOnCancel)="handleCancel()"
+    nzTitle="上传文件面板" 
+    >
+    <ng-container *ngIf="buttonVis">
+        <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload" id="forCenter" >
+            <button nz-button [disabled]="fileList.length == 1"><i nz-icon nzType="upload"></i>选择文件</button>
+        </nz-upload>
+    </ng-container>
+    
+    <ng-container *ngIf="fileList.length!=0">
+    <textarea nz-input placeholder="文件描述" [nzAutosize]="{ minRows: 3, maxRows: 5 }" [(ngModel)]="description">{{description}}</textarea>
+    </ng-container>
+
+    
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">取消</button>
+        <ng-container *ngIf="fileList.length!=0">
+            <button nz-button nzType="primary" (click)="handleUpload()" [nzLoading]="isLoadingOne">确定上传</button>
+        </ng-container>
+    </div>
+</nz-modal>
